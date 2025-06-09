@@ -44,7 +44,7 @@ async function result() {
     const amount = +changes.value
     answer.value = `${amount} ${selectCurrency.value} =   ${(rate * amount).toFixed(2)} ${toCurrency.value}`
   } catch (error) {
-
+    console.log(error);    
   }
 
 }
