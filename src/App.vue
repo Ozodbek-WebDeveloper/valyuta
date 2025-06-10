@@ -56,7 +56,7 @@ async function result() {
     const rate = res.data.conversion_rates[toCurrency.value]
 
     const amount = +changes.value
-    answer.value = `${amount} ${selectCurrency.value} = ${(rate * amount).toFixed(2)} ${toCurrency.value}`
+    answer.value = `${amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")} ${selectCurrency.value} = ${(rate * amount).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")} ${toCurrency.value}`
   } catch (error) {
     console.log(error);
   }
@@ -85,7 +85,7 @@ async function getCurrency(from: string, to: string,) {
   try {
     const res = await axios.get(`${API.value}${from}`)
     const rate = res.data.conversion_rates[to]
-    answer.value = `1 ${from} = ${rate.toFixed(2)} ${to}`
+    answer.value = `1 ${from} = ${rate.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")} ${to}`
   } catch (error) {
     console.log(error)
   }
