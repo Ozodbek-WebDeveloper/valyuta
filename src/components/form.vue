@@ -105,19 +105,6 @@ async function deleteUser(user: any) {
 }
 // put
 
-function chekData(data: any): data is CreateUser {
-  return (
-    data &&
-    typeof data === 'object' &&
-    typeof data.UserName === 'string' &&
-    typeof data.fullName === 'string' &&
-    typeof data.MiddleName === 'string' &&
-    typeof data.Status === 'boolean' &&
-    typeof data.information === 'string'
-  );
-}
-
-
 async function EditUser(user: any) {
   try {
     const res = await axios.get(`${API.value}users/${user.id}`)
@@ -144,7 +131,5 @@ onMounted(() => {
 })
 </script>
 <style>
-/* table,thead,th {
-  border: 1px solid black;
-} */
+
 </style>
