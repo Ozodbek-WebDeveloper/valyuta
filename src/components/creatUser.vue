@@ -1,27 +1,27 @@
 <template>
   <div class="create" @click="$emit('cancel')">
-    <form @click.prevent.stop>
+    <div class="form" @click.stop>
       <input type="text" placeholder="UserName" v-model="UserData.UserName">
       <input type="text" placeholder="FullName" v-model="UserData.fullName">
       <input type="text" placeholder="Middle Name" v-model="UserData.MiddleName">
-      <select style="border: 1px solid black; padding: 5;"  class="border-1" v-model="UserData.Status">
-        <option value="active" class="pa-2" >active</option>
+      <select style="border: 1px solid black; padding: 5;" class="border-1" v-model="UserData.Status">
+        <option value="active" class="pa-2">active</option>
         <option value="inactive">inactive</option>
       </select>
       <input type="text" placeholder="Information" v-model="UserData.information">
       <div class="flex flex-column gap-2">
-        <button class="savebtn   bg-green px-4" :class="{ active: isInvalid }" :disabled="isInvalid" @click="saved">
+        <button type="button" class="savebtn   bg-green px-4" :class="{ active: isInvalid }" :disabled="isInvalid" @click="save">
           save
         </button>
-        <button class="bg-yellow savebtn" @click="clear" :disabled="isInvalid" :class="{ active: isInvalid }">
+        <button type="button" class="bg-yellow savebtn" @click="clear" :disabled="isInvalid" :class="{ active: isInvalid }">
           clear
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
 const emit = defineEmits(['save', 'cancel'])
 
 const props = defineProps<{ user: CreateUser }>()
@@ -46,7 +46,7 @@ const UserData = ref<CreateUser>({
 })
 
 
-function saved() {
+function save() {
   if (UserData.value.id) {
     emit('save', { ...UserData.value, isUpdate: true })
   } else {
@@ -77,7 +77,7 @@ watch(UserData, (newVal) => {
 watch(() => props.user, (newVal) => {
   if (newVal && Object.keys(newVal).length > 0) {
     UserData.value = { ...newVal }
-    console.log('new valll',newVal);
+    console.log('new valll', newVal);
   }
 }, { immediate: true })
 
@@ -100,7 +100,7 @@ watch(() => props.user, (newVal) => {
 
 }
 
-.create form {
+.create .form {
   width: 500px;
   margin: 100px auto;
   display: flex;

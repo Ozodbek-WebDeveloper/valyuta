@@ -2,43 +2,27 @@
   "users": [
     {
       "id": "1",
+      "UserName": "asdasd",
+      "fullName": "asd",
+      "MiddleName": "asda",
+      "Status": "inactive",
+      "information": "asd"
+    },
+    {
+      "id": "2",
       "UserName": "asd",
       "fullName": "asd",
       "MiddleName": "asd",
-      "Status": "active",
+      "Status": "inactive",
       "information": "asdasd"
     },
     {
       "id": "3",
-      "UserName": "asd",
-      "fullName": "asd",
-      "MiddleName": "asdasd",
-      "Status": "inactive",
-      "information": "asdasd"
-    },
-    {
-      "id": "4",
       "UserName": "asdasd",
-      "fullName": "asdas",
-      "MiddleName": "asda",
+      "fullName": "asd",
+      "MiddleName": "asd",
       "Status": "inactive",
-      "information": "asdasd"
-    },
-    {
-      "id": "4",
-      "UserName": "asd",
-      "fullName": "asdas",
-      "MiddleName": "asasd",
-      "Status": "inactive",
-      "information": "asasd"
-    },
-    {
-      "id": "5",
-      "UserName": "asda",
-      "fullName": "asdasd",
-      "MiddleName": "asdasd",
-      "Status": "inactive",
-      "information": "asasd"
+      "information": "asda"
     }
   ]
 }

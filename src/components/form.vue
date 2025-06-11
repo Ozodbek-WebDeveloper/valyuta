@@ -1,9 +1,5 @@
 <template>
   <div class="flex justify-space-between">
-    <div class="pa-4">
-      <button class="text-h5" @click="$router.push('/')">home</button>
-    </div>
-
     <div>
       <div class="pa-4">
         <button class="text-h5 bg-blue px-4 py-1 rounded-md

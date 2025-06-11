@@ -1,18 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 //
-import Header from "@/components/header.vue";
+// import Header from "@/components/header.vue";
 //
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Header,
-    },
-    {
-      path: "/converter",
-      name: "converter",
+      name: "/",
       component: () => import("@/components/converter.vue"),
     },
     {

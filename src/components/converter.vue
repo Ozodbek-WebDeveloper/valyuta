@@ -1,7 +1,5 @@
 <template>
-  <div class="pa-4" >
-    <button class="text-h5" @click="$router.push('/')" >home</button>
-  </div>
+ 
   <div class="w-[500px] mx-auto border mt-4 py-2 px-2 rounded-md">
     <h1 class="text-center text-2xl mb-10">valyuta converter</h1>
     <div class="flex justify-between items-center">
