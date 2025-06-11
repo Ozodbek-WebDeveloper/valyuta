@@ -66,20 +66,12 @@ function Cancel() {
 }
 /// save 
 
-// async function createID(data: any) {
-//   try {
 
-//   } catch (error) {
-
-//   }
-// }
 
 async function saved(UserData: CreateUser & { isUpdate: boolean }) {
   const { isUpdate, ...data } = UserData
   if (isUpdate) {
     try {
-
-
       const res = await axios.put(`${API.value}users/${UserData.id}`, data)
       console.log(res.data);
       editData.value = []
