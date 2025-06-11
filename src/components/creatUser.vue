@@ -59,7 +59,7 @@ function clear() {
     UserName: '',
     fullName: '',
     MiddleName: '',
-    Status: false,
+    Status: 'inactive',
     information: ''
   }
 }
