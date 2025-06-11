@@ -69,10 +69,21 @@ function Cancel() {
   editData.value = []
 }
 /// save 
+
+// async function createID(data: any) {
+//   try {
+
+//   } catch (error) {
+
+//   }
+// }
+
 async function saved(UserData: CreateUser & { isUpdate: boolean }) {
   const { isUpdate, ...data } = UserData
   if (isUpdate) {
     try {
+
+
       const res = await axios.put(`${API.value}users/${UserData.id}`, data)
       console.log(res.data);
       editData.value = []
@@ -82,7 +93,17 @@ async function saved(UserData: CreateUser & { isUpdate: boolean }) {
     }
   } else {
     try {
-      const res = await axios.post(`${API.value}users`, data)
+      const Id = await axios.get(`${API.value}users`)
+      const req = Id.data
+
+      const lastId = String(req.length + 1)
+
+      const newdata = {
+        ...data,
+        id: lastId
+      }
+
+      const res = await axios.post(`${API.value}users`, newdata)
       console.log(res.data);
       editData.value = []
       getUserlist()
@@ -130,6 +151,4 @@ onMounted(() => {
   getUserlist()
 })
 </script>
-<style>
-
-</style>
+<style></style>

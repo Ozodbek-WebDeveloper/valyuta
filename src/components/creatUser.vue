@@ -4,9 +4,9 @@
       <input type="text" placeholder="UserName" v-model="UserData.UserName">
       <input type="text" placeholder="FullName" v-model="UserData.fullName">
       <input type="text" placeholder="Middle Name" v-model="UserData.MiddleName">
-      <select class="border-1" v-model="UserData.Status">
-        <option :value="true">active</option>
-        <option :value="false">disActive</option>
+      <select style="border: 1px solid black; padding: 5;"  class="border-1" v-model="UserData.Status">
+        <option value="active" class="pa-2" >active</option>
+        <option value="inactive">inactive</option>
       </select>
       <input type="text" placeholder="Information" v-model="UserData.information">
       <div class="flex flex-column gap-2">
@@ -29,11 +29,11 @@ const props = defineProps<{ user: CreateUser }>()
 const isInvalid = ref(true)
 
 interface CreateUser {
-  id?: number
+  id?: string
   UserName: string,
   fullName: string,
   MiddleName: string,
-  Status: boolean,
+  Status: string,
   information: string
 }
 
@@ -41,7 +41,7 @@ const UserData = ref<CreateUser>({
   UserName: '',
   fullName: '',
   MiddleName: '',
-  Status: false,
+  Status: 'inactive',
   information: ''
 })
 

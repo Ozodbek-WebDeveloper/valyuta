@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "UserName": "asd",
+      "fullName": "asd",
+      "MiddleName": "asd",
+      "Status": "active",
+      "information": "asdasd"
+    },
+    {
+      "id": "2",
+      "UserName": "asd",
+      "fullName": "asd",
+      "MiddleName": "asd",
+      "Status": "active",
+      "information": "sdasd"
+    }
+  ]
+}
