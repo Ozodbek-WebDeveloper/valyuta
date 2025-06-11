@@ -1,19 +1,19 @@
 <template>
-  <div class="create">
-    <form @click.prevent>
+  <div class="create" @click="$emit('cancel')">
+    <form @click.prevent.stop>
       <input type="text" placeholder="UserName" v-model="UserData.UserName">
       <input type="text" placeholder="FullName" v-model="UserData.fullName">
       <input type="text" placeholder="Middle Name" v-model="UserData.MiddleName">
-      <select name="" id="" v-model="UserData.Status">
+      <select class="border-1" v-model="UserData.Status">
         <option :value="true">active</option>
         <option :value="false">disActive</option>
       </select>
       <input type="text" placeholder="Information" v-model="UserData.information">
       <div class="flex flex-column gap-2">
-        <button class="bg-green px-4" @click="saved">
+        <button class="savebtn   bg-green px-4" :class="{ active: isInvalid }" :disabled="isInvalid" @click="saved">
           save
         </button>
-        <button class="bg-yellow">
+        <button class="bg-yellow savebtn" @click="clear" :disabled="isInvalid" :class="{ active: isInvalid }">
           clear
         </button>
       </div>
@@ -21,10 +21,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-const emit = defineEmits(['save'])
+import { ref, watch, computed } from 'vue'
+const emit = defineEmits(['save', 'cancel'])
 
 const props = defineProps<{ user: CreateUser }>()
+
+const isInvalid = ref(true)
 
 interface CreateUser {
   id?: number
@@ -45,10 +47,47 @@ const UserData = ref<CreateUser>({
 
 
 function saved() {
-  emit('save', UserData.value)
+  if (UserData.value.id) {
+    emit('save', { ...UserData.value, isUpdate: true })
+  } else {
+    emit('save', { ...UserData.value, isUpdate: false })
+  }
 }
+
+function clear() {
+  UserData.value = {
+    UserName: '',
+    fullName: '',
+    MiddleName: '',
+    Status: false,
+    information: ''
+  }
+}
+
+
+watch(UserData, (newVal) => {
+  isInvalid.value = !(
+    newVal.UserName.trim() !== '' &&
+    newVal.fullName.trim() !== '' &&
+    newVal.MiddleName.trim() !== '' &&
+    newVal.information.trim() !== ''
+  )
+}, { deep: true, immediate: true })
+
+watch(() => props.user, (newVal) => {
+  if (newVal && Object.keys(newVal).length > 0) {
+    UserData.value = { ...newVal }
+    console.log('new valll',newVal);
+  }
+}, { immediate: true })
+
 </script>
 <style>
+.savebtn.active {
+  opacity: 0.6 !important;
+  cursor: no-drop;
+}
+
 .create {
   position: fixed;
   top: 0;
