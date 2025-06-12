@@ -64,9 +64,6 @@ interface CreateUser {
 }
 
 async function filter(status: any) {
-
-  
-
   await getUserlist()
   console.log(status);
 
