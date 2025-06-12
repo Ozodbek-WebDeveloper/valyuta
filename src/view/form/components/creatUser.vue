@@ -43,7 +43,7 @@ const UserData = ref<CreateUser>({
   MiddleName: '',
   Status: 'inactive',
   information: ''
-})
+})  
 
 
 function save() {
@@ -56,6 +56,7 @@ function save() {
 
 function clear() {
   UserData.value = {
+  
     UserName: '',
     fullName: '',
     MiddleName: '',

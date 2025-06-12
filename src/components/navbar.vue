@@ -1,8 +1,6 @@
 <template>
   <div>
     <div class="flex bg-[#0B1D51] pa-4 rounded-md gap-3 ">
-
-
       <router-link v-for="item in link" class="btn cursor-pointer bg-white px-5 py-1 rounded-md "
         :to="{ name: item.href }" :class="{ active: $route.name === item.href }">{{ item.title
         }}</router-link>
@@ -21,7 +19,7 @@ const link: Ibtn[] = [
   { title: 'users', href: 'form' }
 ]
 </script>
-<style>
+<style scoped >
 .btn:hover,
 .btn.active {
   background-color: #4DA8DA !important;

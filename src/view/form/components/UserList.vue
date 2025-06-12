@@ -9,6 +9,7 @@
   </div>
   <!-- {{ users }} -->
   <div class="w-66 mx-auto">
+    <userFilter @Filter="filter" />
     <h1 class="text-h5 text-center mb-4">User List</h1>
     <table class=" w-full ">
       <thead class="">
@@ -18,11 +19,13 @@
       </thead>
       <tbody>
         <tr class="border-b-2" v-for="(items, idx) in users" :class="{ 'bg-gray-300': (idx + 1) % 2 === 0 }">
-          <td class="text-center pa-2" v-for="(item, idx) in items">{{ item }}</td>
+          <th>{{ idx + 1 }}</th>
+          <td class="text-center pa-2" v-for="(item, index) in Object.values(items).slice(1)">{{ item }}</td>
+          <!-- {{ items }} -->
           <th>
             <div class="flex gap-2 pa-1 justify-center ">
-              <button class="bg-yellow px-2" @click="EditUser(items)">edit</button>
-              <button class="bg-red px-2" @click="askDelete(items)">delete</button>
+              <button type="button" class="bg-yellow px-2" @click="EditUser(items)">edit</button>
+              <button type="button" class="bg-red px-2" @click="askDelete(items)">delete</button>
             </div>
           </th>
         </tr>
@@ -38,19 +41,19 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import creatUser from './creatUser.vue';
 import deleteConfirm from './deleteConfirm.vue'
+import userFilter from './userFilter.vue'
 // 
-// const chekDelete = ref(false)
 const isDeleteConfirm = ref(false)
 const deleteUserID = ref(null)
 // 
 const create = ref(false)
 const API = ref('http://localhost:3000/')
 const users = ref([])
+const filterUser = ref([])
 const editData = ref({})
 const UserInfo: String[] = ['id', 'UserName', 'FullName', 'Middle Name', 'Status', 'Information', 'Create data', 'update data', 'control']
 
 interface CreateUser {
-  id?: number
   UserName: string,
   fullName: string,
   MiddleName: string,
@@ -60,15 +63,21 @@ interface CreateUser {
   update_data: number
 }
 
-const UserData = ref<CreateUser>({
-  UserName: '',
-  fullName: '',
-  MiddleName: '',
-  Status: false,
-  information: '',
-  create_data: 0,
-  update_data: 0
-})
+async function filter(status: any) {
+
+  
+
+  await getUserlist()
+  console.log(status);
+
+  if(status === 'all') return
+
+  const filtered = users.value.filter(user => user.Status === status)
+  console.log(filtered)
+  users.value = filtered
+  console.log(users);
+
+}
 
 
 function Cancel() {
@@ -78,37 +87,25 @@ function Cancel() {
 /// save 
 
 async function saved(UserData: CreateUser & { isUpdate: boolean }) {
-  const { isUpdate, ...data } = UserData
+  const { isUpdate, ...newData } = UserData
   // 
   const CreateData = new Date()
   const today = `${CreateData.getDate()}.${CreateData.getMonth() + 1}.${CreateData.getFullYear()}`
-  
+
   if (isUpdate) {
-    data.update_data = today
+    newData.update_data = today
     try {
-      const res = await axios.put(`${API.value}users/${UserData.id}`, data)
-      console.log(res.data);
+      const res = await axios.put(`${API.value}users/${UserData.id}`, newData)
       editData.value = []
       getUserlist()
     } catch (error) {
       console.log(error);
     }
   } else {
-    data.create_data = today
-    data.update_data = 0
+    newData.create_data = today
+    newData.update_data = 0
     try {
-      const Id = await axios.get(`${API.value}users`)
-      const req = Id.data
-
-      const lastId = String(req.length + 1)
-
-      const newdata = {
-        ...data,
-        id: lastId
-      }
-
-      const res = await axios.post(`${API.value}users`, newdata)
-      console.log(res.data);
+      const res = await axios.post(`${API.value}users`, newData)
       editData.value = []
       getUserlist()
     } catch (error) {
@@ -156,7 +153,7 @@ async function EditUser(user: any) {
 async function getUserlist() {
   try {
     const res = await axios.get(`${API.value}users`)
-    users.value = res.data
+    users.value = res.data.sort((a, b) => a.UserName.localeCompare(b.UserName))
   } catch (error) {
     console.log(error)
   }
