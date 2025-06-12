@@ -8,12 +8,12 @@ const router = createRouter({
     {
       path: "/",
       name: "/",
-      component: () => import("@/components/converter.vue"),
+      component: () => import('@/view/Convertor/index.vue')
     },
     {
       path:'/form',
       name:'form',
-      component:() => import('@/components/form.vue')
+      component:() => import('@/view/form/index.vue')
     }
   ],
 });
