@@ -1,38 +1,41 @@
 <template>
- 
-  <div class="w-[500px] mx-auto border mt-4 py-2 px-2 rounded-md">
-    <h1 class="text-center text-2xl mb-10">valyuta converter</h1>
-    <div class="flex justify-between items-center">
-      <!--  -->
-      <div class="w-33">
-        <select class="w-full border px-2" v-model="selectCurrency">
-          <option value="" disabled selected hidden>select</option>
-          <option :value="item" v-for="item in currencies">{{ item }}</option>
-        </select>
+
+  <div class="container w-75 mx-auto">
+    <div class="w-[500px] mx-auto border mt-4 py-2 px-2 rounded-md">
+      <h1 class="text-center text-2xl mb-10">valyuta converter</h1>
+      <div class="flex justify-between items-center">
+        <!--  -->
+        <div class="w-33">
+          <select class="w-full border px-2" v-model="selectCurrency">
+            <option value="" disabled selected hidden>select</option>
+            <option :value="item" v-for="item in currencies">{{ item }}</option>
+          </select>
+        </div>
+        <!--  -->
+        <p><i class="fa-solid fa-right-long"></i></p>
+        <!--  -->
+        <div class="w-33">
+          <select class="w-full border px-2" v-model="toCurrency">
+            <option value="" disabled selected hidden>select</option>
+            <option :value="item" v-for="item in currencies">{{ item }}</option>
+          </select>
+        </div>
+        <!--  -->
+      </div>
+      <div class=" my-4 w-33 mx-auto">
+        <input type="number" v-model="changes" class="outline-none pl-2 w-full" style="border: 1px solid black;">
       </div>
       <!--  -->
-      <p><i class="fa-solid fa-right-long"></i></p>
-      <!--  -->
-      <div class="w-33">
-        <select class="w-full border px-2" v-model="toCurrency">
-          <option value="" disabled selected hidden>select</option>
-          <option :value="item" v-for="item in currencies">{{ item }}</option>
-        </select>
+      <div class="flex justify-center gap-3">
+        <button style="background-color: green;" :class="{ 'disabled': activeBtn }"
+          class="btn text-white px-5 py-1 rounded-md" @click="result">result</button>
+        <button style="background-color: yellow;" class="text-black px-5 py-1 rounded-md" @click="reset">reset</button>
       </div>
       <!--  -->
+      <p class="mt-5">{{ answer }}</p>
     </div>
-    <div class=" my-4 w-33 mx-auto">
-      <input type="number" v-model="changes" class="outline-none pl-2 w-full" style="border: 1px solid black;">
-    </div>
-    <!--  -->
-    <div class="flex justify-center gap-3">
-      <button style="background-color: green;" :class="{ 'disabled': activeBtn }"
-        class="btn text-white px-5 py-1 rounded-md" @click="result">result</button>
-      <button style="background-color: yellow;" class="text-black px-5 py-1 rounded-md" @click="reset">reset</button>
-    </div>
-    <!--  -->
-    <p class="mt-5">{{ answer }}</p>
   </div>
+
 </template>
 <!--  -->
 <script setup lang="ts">

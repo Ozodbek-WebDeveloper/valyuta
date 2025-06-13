@@ -1,33 +1,34 @@
 <template>
   <div>
-    <h1>Filter</h1>
-    <div class="flex gap-3 items-center">
-      <div class="flex items-center gap-2">
-        <label for="one">Inactive</label>
-        <input type="checkbox" id="one" :value="inactive" :checked="chekFilter === 'inactive'"
-          @change="chekFilter = 'inactive', $emit('Filter', 'inactive')" />
-      </div>
-      <div class="flex items-center gap-2">
-        <label for="two">Active</label>
-        <input type="checkbox" id="two" :checked="chekFilter === 'active'"
-          @change="chekFilter = 'active', $emit('Filter', 'active')" />
-      </div>
-      <button class="btn" @click="$emit('Filter','all')" >clear</button>
+    <h1 class="mb-3">Filter</h1>
+
+
+    <div class="flex gap-2">
+      <select class="w-[100px] border border-black" v-model="chekFilter">
+        <option disabled hidden value="">Tanlang</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+
+      <button class="btn" @click="chekFilter = ''">Clear</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
+const emit = defineEmits(['filter'])
+const chekFilter = ref('')
 
-const chekFilter = ref<boolean | null>(null) 
+watch(chekFilter, newVal => {
+  emit('filter', newVal)
+})
 </script>
 
-<style scoped >
-
-.btn{
-  background-color:#2196F3;
+<style scoped>
+.btn {
+  background-color: #2196F3;
   padding: 5px 25px;
   border-radius: 10px;
 }

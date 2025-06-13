@@ -1,21 +1,25 @@
 <template>
-  <div class="create" @click="$emit('cancel')">
-    <div class="form" @click.stop>
-      <input type="text" placeholder="UserName" v-model="UserData.UserName">
-      <input type="text" placeholder="FullName" v-model="UserData.fullName">
-      <input type="text" placeholder="Middle Name" v-model="UserData.MiddleName">
-      <select style="border: 1px solid black; padding: 5;" class="border-1" v-model="UserData.Status">
-        <option value="active" class="pa-2">active</option>
-        <option value="inactive">inactive</option>
-      </select>
-      <input type="text" placeholder="Information" v-model="UserData.information">
-      <div class="flex flex-column gap-2">
-        <button type="button" class="savebtn   bg-green px-4" :class="{ active: isInvalid }" :disabled="isInvalid" @click="save">
-          save
-        </button>
-        <button type="button" class="bg-yellow savebtn" @click="clear" :disabled="isInvalid" :class="{ active: isInvalid }">
-          clear
-        </button>
+  <div class="container w-75 mx-auto">
+    <div class="create" @click="$emit('cancel')">
+      <div class="form" @click.stop>
+        <input type="text" placeholder="UserName" v-model="UserData.UserName">
+        <input type="text" placeholder="FullName" v-model="UserData.fullName">
+        <input type="text" placeholder="Middle Name" v-model="UserData.MiddleName">
+        <select style="border: 1px solid black; padding: 5;" v-model="UserData.Status">
+          <option value="active" class="pa-2">active</option>
+          <option value="inactive">inactive</option>
+        </select>
+        <input type="text" placeholder="Information" v-model="UserData.information">
+        <div class="flex flex-column gap-2">
+          <button type="button" class="savebtn   bg-green px-4" :class="{ active: isInvalid }" :disabled="isInvalid"
+            @click="save">
+            save
+          </button>
+          <button type="button" class="bg-yellow savebtn" @click="clear" :disabled="isInvalid"
+            :class="{ active: isInvalid }">
+            clear
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +28,7 @@
 import { ref, watch } from 'vue'
 const emit = defineEmits(['save', 'cancel'])
 
-const props = defineProps<{ user: CreateUser }>()
+const props = defineProps<{ user: any }>()
 
 const isInvalid = ref(true)
 
@@ -43,7 +47,7 @@ const UserData = ref<CreateUser>({
   MiddleName: '',
   Status: 'inactive',
   information: ''
-})  
+})
 
 
 function save() {
@@ -56,7 +60,7 @@ function save() {
 
 function clear() {
   UserData.value = {
-  
+
     UserName: '',
     fullName: '',
     MiddleName: '',
@@ -78,7 +82,6 @@ watch(UserData, (newVal) => {
 watch(() => props.user, (newVal) => {
   if (newVal && Object.keys(newVal).length > 0) {
     UserData.value = { ...newVal }
-    console.log('new valll', newVal);
   }
 }, { immediate: true })
 
